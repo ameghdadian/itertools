@@ -1,5 +1,21 @@
-# itertools
-**itertools** provide tools to simplify working with Iterators(officially added to the language in Go 1.23 release). 
+<div align="center">
+    <h1>itertools</h1>
+    <a href="https://goreportcard.com/report/github.com/ameghdadian/itertools">
+     <img src="https://goreportcard.com/badge/github.com/ameghdadian/itertools" height="20" alt="Go Report Card">
+    </a>
+    <a href="https://pkg.go.dev/github.com/yourusername/mypackage">
+        <img src="https://pkg.go.dev/badge/github.com/ameghdadian/itertools.svg" height="20" alt="Go Reference">
+    </a>
+    <a href="https://github.com/ameghdadian/itertools/actions/workflows/github-actions.yaml/badge.svg">
+        <img src="https://github.com/ameghdadian/itertools/actions/workflows/github-actions.yaml/badge.svg" height="20" alt="CI">
+    </a>
+    <a href="#">
+     <img src="https://img.shields.io/coverallsCoverage/github/ameghdadian/itertools" height="20" alt="Code Test Coverage">
+    </a>
+
+  <h3><em>itertools provides tools to simplify working with Iterators(officially introduced in Go 1.23 release).</em></h3>
+</div>
+
 
 ## Example
 
