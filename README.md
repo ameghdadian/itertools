@@ -3,7 +3,7 @@
     <a href="https://goreportcard.com/report/github.com/ameghdadian/itertools">
      <img src="https://goreportcard.com/badge/github.com/ameghdadian/itertools" height="20" alt="Go Report Card">
     </a>
-    <a href="https://pkg.go.dev/github.com/yourusername/mypackage">
+    <a href="https://pkg.go.dev/github.com/ameghdadian/itertools">
         <img src="https://pkg.go.dev/badge/github.com/ameghdadian/itertools.svg" height="20" alt="Go Reference">
     </a>
     <a href="https://github.com/ameghdadian/itertools/actions/workflows/github-actions.yaml/badge.svg">
