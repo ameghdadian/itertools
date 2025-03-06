@@ -119,28 +119,28 @@ func TestReverse(t *testing.T) {
 
 func TestShuffle(t *testing.T) {
 	type TestCase[T any] struct {
-		input         [][]T
+		input         []T
 		shouldContain []T
 	}
 
 	table := []TestCase[any]{
 		{
-			input:         [][]any{{1, 2, 3}, {7, 8, 9}},
+			input:         []any{1, 2, 3, 7, 8, 9},
 			shouldContain: []any{9, 8, 7, 3, 2, 1},
 		},
 		{
-			input:         [][]any{{"hello", "world"}, {"gophers"}},
+			input:         []any{"hello", "world", "gophers"},
 			shouldContain: []any{"gophers", "world", "hello"},
 		},
 		{
-			input:         [][]any{{1.2, 10.44}, {5.1}},
+			input:         []any{1.2, 10.44, 5.1},
 			shouldContain: []any{5.1, 10.44, 1.2},
 		},
 	}
 
 	for _, tt := range table {
 		var a []any
-		for v := range Reverse(tt.input...) {
+		for v := range Shuffle(tt.input) {
 			a = append(a, v)
 		}
 
