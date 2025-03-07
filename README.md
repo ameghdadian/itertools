@@ -42,7 +42,7 @@
         it1 := slices.Values(a)
         it2 := slices.Values(b)
 
-        combined := itertools.ConcatIter(a, b)
+        combined := itertools.ConcatIter(it1, it2)
         for v := range combined {
             fmt.Println(v)
         }
