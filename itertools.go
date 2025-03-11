@@ -2,7 +2,6 @@
 package itertools
 
 import (
-	"cmp"
 	"iter"
 	"math/rand/v2"
 	"slices"
@@ -115,11 +114,9 @@ func ForEach[T any](seq iter.Seq[T], fn func(int, T)) {
 
 // Reduce executes a user-supplied "reducer" function on each element of the array,
 // in order, passing in the return value from the calculation on the preceding element.
-func Reduce[T cmp.Ordered](seq iter.Seq[T], reducer func(acc T, cur T) T, init T) T {
-	var total T
-
+func Reduce[T any](seq iter.Seq[T], reducer func(acc T, cur T) T, init T) T {
 	for v := range seq {
-		init += reducer(total, v)
+		init = reducer(init, v)
 	}
 
 	return init
