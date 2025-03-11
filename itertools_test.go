@@ -1,7 +1,6 @@
 package itertools
 
 import (
-	"cmp"
 	"fmt"
 	"io"
 	"iter"
@@ -312,60 +311,90 @@ func TestForEach(t *testing.T) {
 	}
 }
 
-type ReduceTestCase[T cmp.Ordered] struct {
-	input    []T
-	expected T
-	fn       func(T, T) T
-	init     T
-}
+// func reduceTestHelper[V cmp.Ordered](table ReduceTestCase[V]) func(t *testing.T) {
+// 	return func(t *testing.T) {
+// 		result := Reduce(slices.Values(table.input), table.fn, table.init)
 
-func reduceTestHelper[V cmp.Ordered](table ReduceTestCase[V]) func(t *testing.T) {
-	return func(t *testing.T) {
-		result := Reduce(slices.Values(table.input), table.fn, table.init)
+// 		f, ok := any(result).(float64)
+// 		if ok {
+// 			rounded := math.Round(f*10) / 10
+// 			result = any(rounded).(V)
+// 		}
 
-		f, ok := any(result).(float64)
-		if ok {
-			rounded := math.Round(f*10) / 10
-			result = any(rounded).(V)
-		}
-
-		if result != table.expected {
-			t.Errorf("not equal")
-			t.Logf("got: %v", result)
-			t.Logf("exp: %v", table.expected)
-		}
-	}
-}
+// 		if result != table.expected {
+// 			t.Errorf("not equal")
+// 			t.Logf("got: %v", result)
+// 			t.Logf("exp: %v", table.expected)
+// 		}
+// 	}
+// }
 
 func TestReduce(t *testing.T) {
-	table := ReduceTestCase[int]{
-		input:    []int{1, 2, 3, 7, 8, 9},
+	type TestCase[T any] struct {
+		input    []T
+		expected T
+		fn       func(T, T) T
+		init     T
+	}
+
+	table := []TestCase[any]{{
+		input:    []any{1, 2, 3, 7, 8, 9},
 		expected: 30,
-		fn: func(acc int, cur int) int {
-			return acc + cur
+		fn: func(acc any, cur any) any {
+			a, _ := acc.(int)
+			c, _ := cur.(int)
+			return a + c
 		},
 		init: 0,
-	}
-
-	table2 := ReduceTestCase[string]{
-		input:    []string{"hello", "world", "gophers"},
-		expected: ":)helloworldgophers",
-		fn: func(acc string, cur string) string {
-			return acc + cur
+	},
+		{
+			input:    []any{1, 2, 3, 7, 8, 9},
+			expected: 10,
+			fn: func(acc any, cur any) any {
+				a, _ := acc.(int)
+				c, _ := cur.(int)
+				return a - c
+			},
+			init: 40,
 		},
-		init: ":)",
-	}
 
-	table3 := ReduceTestCase[float64]{
-		input:    []float64{1.2, 10.4, 5.1},
-		expected: 18.7,
-		fn: func(acc float64, cur float64) float64 {
-			return acc + cur
+		{
+			input:    []any{"hello", "world", "gophers"},
+			expected: ":)helloworldgophers",
+			fn: func(acc any, cur any) any {
+				a, _ := acc.(string)
+				c, _ := cur.(string)
+				return a + c
+			},
+			init: ":)",
 		},
-		init: 2.0,
+		{
+			input:    []any{1.2, 10.4, 5.1},
+			expected: 18.7,
+			fn: func(acc any, cur any) any {
+				a, _ := acc.(float64)
+				c, _ := cur.(float64)
+				sum := a + c
+				rounded := math.Round(sum*10) / 10
+				return rounded
+			},
+			init: 2.0,
+		},
 	}
 
-	t.Run("int", reduceTestHelper(table))
-	t.Run("string", reduceTestHelper(table2))
-	t.Run("float64", reduceTestHelper(table3))
+	for _, tt := range table {
+
+		result := Reduce(slices.Values(tt.input), tt.fn, tt.init)
+
+		if result != tt.expected {
+			t.Errorf("not equal")
+			t.Logf("got: %v", result)
+			t.Logf("exp: %v", tt.expected)
+		}
+	}
+
+	// t.Run("int(add)", reduceTestHelper(table))
+	// t.Run("int(sub)", reduceTestHelper(table1))
+	// t.Run("string", reduceTestHelper(table2))
+	// t.Run("float64", reduceTestHelper(table3))
 }
