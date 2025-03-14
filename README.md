@@ -14,7 +14,7 @@
     </a>
 
   <h3><em>itertools provides tools to simplify working with Iterators(officially introduced in Go 1.23 release).</em></h3>
-  <h3>NOTE: this repository is archived. Use <a href="https://github.com/ameghdadian/iter">iter</a> instead.</h3>
+  <h3>NOTE: this repository is archived. Use <a href="https://github.com/ameghdadian/x/tree/main/iter">iter</a> instead.</h3>
 </div>
 
 
